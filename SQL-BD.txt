@@ -1,0 +1,97 @@
+-- ================================================
+-- Base de données : E-learning
+-- ================================================
+
+-- ========================
+-- Table : Utilisateurs
+-- ========================
+CREATE TABLE Utilisateurs (
+    id_utilisateur SERIAL PRIMARY KEY,
+    nom_utilisateur VARCHAR(100) NOT NULL,
+    prenom_utilisateur VARCHAR(100) NOT NULL,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+-- ========================
+-- Table : Cours
+-- ========================
+CREATE TABLE Cours (
+    id_cour SERIAL PRIMARY KEY,
+    id_utilisateurs INTEGER NOT NULL,
+    nom_cour VARCHAR(150) NOT NULL,
+    FOREIGN KEY (id_utilisateurs) REFERENCES Utilisateurs(id_utilisateur)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ========================
+-- Table : Module
+-- ========================
+CREATE TABLE Module (
+    id_module SERIAL PRIMARY KEY,
+    id_cour INTEGER NOT NULL,
+    titre_module VARCHAR(150) NOT NULL,
+    ordre_module INTEGER,
+    FOREIGN KEY (id_cour) REFERENCES Cours(id_cour)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ========================
+-- Table : Leçon
+-- ========================
+CREATE TABLE Lecon (
+    id_lecon SERIAL PRIMARY KEY,
+    id_module INTEGER NOT NULL,
+    titre_lecon VARCHAR(150) NOT NULL,
+    FOREIGN KEY (id_module) REFERENCES Module(id_module)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ========================
+-- Table : Inscription
+-- ========================
+CREATE TABLE Inscription (
+    id_inscription SERIAL PRIMARY KEY,
+    id_utilisateur INTEGER NOT NULL,
+    date_inscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateurs(id_utilisateur)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ========================
+-- Table : Inscription_Cour
+-- ========================
+CREATE TABLE Inscription_Cour (
+    id_inscription INTEGER NOT NULL,
+    id_cour INTEGER NOT NULL,
+    PRIMARY KEY (id_inscription, id_cour),
+    FOREIGN KEY (id_inscription) REFERENCES Inscription(id_inscription)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_cour) REFERENCES Cours(id_cour)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ========================
+-- Table : Progression
+-- ========================
+CREATE TABLE Progression (
+    id_progression SERIAL PRIMARY KEY,
+    id_lecon INTEGER NOT NULL,
+    etat_progression VARCHAR(50) DEFAULT 'En cours',
+    FOREIGN KEY (id_lecon) REFERENCES Lecon(id_lecon)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ========================
+-- Table : Avoir (relation utilisateur <-> progression)
+-- ========================
+CREATE TABLE Avoir (
+    id_utilisateur INTEGER NOT NULL,
+    id_progression INTEGER NOT NULL,
+    PRIMARY KEY (id_utilisateur, id_progression),
+    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateurs(id_utilisateur)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_progression) REFERENCES Progression(id_progression)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
