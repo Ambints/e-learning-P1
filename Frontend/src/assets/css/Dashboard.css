@@ -1,0 +1,61 @@
+@import './Home.css';
+
+.dashboard-root {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.dash-sidebar {
+  width: 260px;
+  background: white;
+  border-right: 1px solid var(--border-color);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash-brand img { width: 38px; }
+.dash-brand h3 { margin: 0; font-size: 18px; }
+
+.dash-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.dash-nav a { color: var(--text-medium); padding: 8px 10px; border-radius: var(--radius-sm); display: block; }
+.dash-nav a:hover { color: var(--primary-color); background: var(--secondary-color); }
+
+.dash-cta { margin-top: auto; }
+
+.dash-main { flex: 1; display: flex; flex-direction: column; }
+.dash-topbar { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border-color); background: white; }
+.search-wrap input { padding: 10px 12px; border: 2px solid var(--border-color); border-radius: var(--radius-sm); min-width: 360px; }
+.top-actions .avatar { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--primary-color); color: white; text-decoration: none; }
+
+.dash-content { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+.overview { display: flex; gap: 24px; }
+.overview-left { flex: 1; }
+.overview-right { width: 320px; display: flex; flex-direction: column; gap: 12px; }
+
+.progress-cards { display: flex; gap: 12px; margin-top: 12px; }
+.card { background: white; border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); }
+.card.progress { flex: 2; }
+.meter { height: 12px; background: var(--secondary-color); border-radius: 999px; overflow: hidden; margin: 8px 0; }
+.meter div { height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--primary-dark)); }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.course-card { padding: 16px; background: white; border-radius: var(--radius-sm); border: 1px solid var(--border-color); }
+.course-card h4 { margin-top: 0; }
+
+.dash-footer { padding: 20px; text-align: center; color: var(--text-light); }
+
+@media (max-width: 900px) {
+  .dash-sidebar { display: none; }
+  .overview { flex-direction: column; }
+  .overview-right { width: 100%; }
+  .search-wrap input { min-width: 160px; }
+}

@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../assets/css/Home.css';
+import { courses } from '../data/courses';
 
 function Home() {
   return (
@@ -8,9 +10,9 @@ function Home() {
       <header className="home-header">
         <nav className="navbar">
           <div className="nav-logo">
-            <a href="/">
+            <Link to="/">
               <img src="Logo.svg" alt="Logo" className="logo-img" />
-            </a>
+            </Link>
           </div>
           <ul className="nav-links">
             <li><a href="/cours">Cours</a></li>
@@ -21,8 +23,8 @@ function Home() {
             <input type="text" placeholder="Rechercher..." />
           </div>
           <div className="nav-auth">
-            <button className="btn btn-secondary">Se connecter</button>
-            <button className="btn btn-primary">S'inscrire</button>
+            <Link to="/login" className="btn btn-secondary">Se connecter</Link>
+            <Link to="/signup" className="btn btn-primary">S'inscrire</Link>
           </div>
         </nav>
       </header>
@@ -35,7 +37,7 @@ function Home() {
             Votre avenir commence ici. Accédez à des cours complets sur A, B, C, D et bien plus encore.
           </h3>
           <div className="hero-cta">
-            <button className="btn btn-primary btn-large">Commencer gratuitement</button>
+            <Link to="/signup" className="btn btn-primary btn-large">Commencer gratuitement</Link>
           </div>
         </section>
 
@@ -45,29 +47,12 @@ function Home() {
           <p>Choisissez un sujet pour débuter.</p>
 
           <div className="course-grid">
-            <div className="course-card">
-              <h3>🇬🇧 Apprendre l'Anglais</h3>
-              <p>
-                Maîtrisez les fondamentaux et les concepts avancés de l'anglais
-                avec nos tutoriels interactifs.
-              </p>
-            </div>
-
-            <div className="course-card">
-              <h3>🇫🇷 Apprendre le Français</h3>
-              <p>
-                Devenez un expert en français grâce à des projets concrets et
-                des exercices pratiques.
-              </p>
-            </div>
-
-            <div className="course-card">
-              <h3>🇪🇸 Apprendre l'Espagnol</h3>
-              <p>
-                Découvrez la puissance de l'espagnol et comment l'appliquer dans
-                des scénarios réels.
-              </p>
-            </div>
+            {courses.map((c) => (
+              <div key={c.id} className="course-card">
+                <h3>{c.lang} {c.title}</h3>
+                <p>{c.description}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -109,7 +94,7 @@ function Home() {
         <section className="final-cta-section">
           <h2>Prêt à développer vos compétences ?</h2>
           <p>Créez un compte gratuit et commencez à apprendre dès aujourd'hui.</p>
-          <button className="btn btn-primary btn-large">S'inscrire gratuitement</button>
+          <Link to="/signup" className="btn btn-primary btn-large">S'inscrire gratuitement</Link>
         </section>
       </main>
 
@@ -160,7 +145,7 @@ function Home() {
           </div>
 
           <p>
-            © 2025 [Votre Nom de Site]. Tous droits réservés. |
+            © 2025 EduSmart. Tous droits réservés. |
             <a href="/terms"> Conditions</a> |
             <a href="/privacy"> Confidentialité</a>
           </p>
